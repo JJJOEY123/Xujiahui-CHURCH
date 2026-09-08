@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Language } from './types';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { DiscoverSection } from './components/DiscoverSection';
 import { VirtualExperience } from './components/VirtualExperience';
-import { BookingSection } from './components/BookingSection';
 import { LiturgySection } from './components/LiturgySection';
 import { VisitorGuidelines } from './components/VisitorGuidelines';
 import { NewsSection } from './components/NewsSection';
 import { Footer } from './components/Footer';
+import { cathedralAudio } from './utils/audioSynthesizer';
 
 export default function App() {
   const [currentLang, setCurrentLang] = useState<Language>('zh');
+
+  // Auto-play ambient sacred organ music upon entering webpage
+  useEffect(() => {
+    cathedralAudio.initAutoPlay();
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -28,14 +33,12 @@ export default function App() {
       <Navbar
         currentLang={currentLang}
         onLanguageChange={setCurrentLang}
-        onOpenBookingModal={() => scrollToSection('booking')}
       />
 
       {/* Hero Entrance */}
       <Hero
         currentLang={currentLang}
         onExploreClick={() => scrollToSection('discover')}
-        onBookingClick={() => scrollToSection('booking')}
         onVirtualTourClick={() => scrollToSection('virtual')}
       />
 
@@ -45,16 +48,13 @@ export default function App() {
       {/* 2. Virtual Experience & Digital Tour (modeled after St. Peter's Pétros ení) */}
       <VirtualExperience currentLang={currentLang} />
 
-      {/* 3. Booking Experience & Tours (modeled after St. Peter's Book Your Visit) */}
-      <BookingSection currentLang={currentLang} />
-
-      {/* 4. Sacred Liturgies & Mass Times (modeled after St. Peter's Celebrations) */}
+      {/* 3. Sacred Liturgies & Mass Times (modeled after St. Peter's Celebrations) */}
       <LiturgySection currentLang={currentLang} />
 
-      {/* 5. Visitor Guidelines & Sacred Decorum (modeled after St. Peter's Info & Opening Hours) */}
+      {/* 4. Visitor Guidelines & Sacred Decorum (modeled after St. Peter's Info & Opening Hours) */}
       <VisitorGuidelines currentLang={currentLang} />
 
-      {/* 6. Cathedral News & Announcements (modeled after St. Peter's News) */}
+      {/* 5. Cathedral News & Announcements (modeled after St. Peter's News) */}
       <NewsSection currentLang={currentLang} />
 
       {/* Official Dignified Vatican-style Footer */}

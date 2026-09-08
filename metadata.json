@@ -1,6 +1,6 @@
 {
   "name": "上海徐家汇天主教堂 | St. Ignatius Cathedral",
-  "description": "上海徐家汇圣依纳爵主教座堂官方导览与预约服务门户，融合梵蒂冈圣伯多禄大殿官网设计，提供建筑探索、参观预约、360°虚拟漫游、弥撒时刻与云端语音导览。",
+  "description": "上海徐家汇圣依纳爵主教座堂官方文化导览门户，融合梵蒂冈圣伯多禄大殿官网设计，提供百年哥特建筑艺术探索、360°虚拟漫游、弥撒礼仪时刻与云端语音导览。",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

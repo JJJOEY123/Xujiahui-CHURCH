@@ -3,17 +3,23 @@ import heroImgAsset from '../assets/images/cathedral_hero_1788774360940.jpg';
 import interiorImgAsset from '../assets/images/cathedral_interior_1788774381534.jpg';
 import roseWindowImgAsset from '../assets/images/cathedral_rose_window_1788774397730.jpg';
 import altarImgAsset from '../assets/images/cathedral_altar_1788774416726.jpg';
+import xuGuangqiImgAsset from '../assets/images/cathedral_xu_ricci_dialogue_1788874198465.jpg';
+import madonnaImgAsset from '../assets/images/cathedral_madonna_1788872734082.jpg';
 
 // Public CDN fallbacks in case local binary files are excluded during ZIP download or Git push
 export const HERO_FALLBACK = 'https://images.unsplash.com/photo-1548625361-16eb16428c0c?auto=format&fit=crop&w=2000&q=85';
 export const INTERIOR_FALLBACK = 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=2000&q=85';
 export const ROSE_WINDOW_FALLBACK = 'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1600&q=85';
 export const ALTAR_FALLBACK = 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?auto=format&fit=crop&w=2000&q=85';
+export const XU_GUANGQI_FALLBACK = 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1600&q=85';
+export const MADONNA_FALLBACK = 'https://images.unsplash.com/photo-1548625361-16eb16428c0c?auto=format&fit=crop&w=1600&q=85';
 
 export const HERO_IMAGE = heroImgAsset || '/images/cathedral_hero.jpg' || HERO_FALLBACK;
 export const INTERIOR_IMAGE = interiorImgAsset || '/images/cathedral_interior.jpg' || INTERIOR_FALLBACK;
 export const ROSE_WINDOW_IMAGE = roseWindowImgAsset || '/images/cathedral_rose_window.jpg' || ROSE_WINDOW_FALLBACK;
 export const ALTAR_IMAGE = altarImgAsset || '/images/cathedral_altar.jpg' || ALTAR_FALLBACK;
+export const XU_GUANGQI_IMAGE = xuGuangqiImgAsset || '/images/cathedral_xu_guangqi.jpg' || XU_GUANGQI_FALLBACK;
+export const MADONNA_IMAGE = madonnaImgAsset || '/images/cathedral_madonna.jpg' || MADONNA_FALLBACK;
 
 export const ARCHITECTURAL_HIGHLIGHTS: ArchitecturalHighlight[] = [
   {
@@ -128,7 +134,7 @@ export const ARCHITECTURAL_HIGHLIGHTS: ArchitecturalHighlight[] = [
     dimension: '徐家汇源核心文物区',
     descriptionZh: '明代崇祯文渊阁大学士徐光启受洗于此，与利玛窦翻译《几何原本》，开启西学东渐。徐家汇因而得名，成为中国早期近代科学与天主教传播的关键重镇。',
     descriptionEn: 'The cathedral district is named after Paul Xu Guangqi, the Grand Academician of the Ming Dynasty who collaborated with Matteo Ricci to translate Euclid’s Elements, fostering early scientific and cultural exchange.',
-    image: HERO_IMAGE,
+    image: XU_GUANGQI_IMAGE,
     detailsZh: [
       '徐家汇（原名徐家汇村）由徐光启及其后裔聚居与安葬地演化而来。',
       '座堂邻近徐光启墓园（光启公园）、徐家汇藏书楼及土山湾博物馆，构成完整文化聚落。',
@@ -142,26 +148,28 @@ export const ARCHITECTURAL_HIGHLIGHTS: ArchitecturalHighlight[] = [
   },
   {
     id: 'cathedral-treasury',
-    titleZh: '主教座堂圣器与珍藏典籍',
-    titleEn: 'Cathedral Sacred Treasury & Archives',
-    subtitleZh: '百年礼仪金银器与织锦祭披',
-    subtitleEn: 'Centennial Liturgical Vessels & Embroidered Vestments',
-    categoryZh: '典藏宝库',
-    categoryEn: 'Cathedral Treasury',
+    titleZh: '进教之佑圣母雕像与主教座堂圣艺典藏',
+    titleEn: 'Our Lady Help of Christians & Sacred Treasury',
+    subtitleZh: '头戴十二星金冠与百年来华圣艺瑰宝',
+    subtitleEn: 'Gilded Madonna with Star Halo & Sacred Archives',
+    categoryZh: '圣像与典藏',
+    categoryEn: 'Sacred Statue & Treasury',
     year: '19-20世纪',
-    dimension: '圣器室与展陈馆藏',
-    descriptionZh: '圣器室珍藏有多套19世纪末自欧洲定制的手工金丝刺绣大祭披、银镀金圣爵、圣体光、拉伯尔象牙苦像，以及清末铅活字印刷拉丁语天主教典籍。',
-    descriptionEn: 'The sacristy and treasury house liturgical masterworks including 19th-century gold-embroidered chasubles, gilded silver chalices, monstrances, and rare hand-pressed bilingual Latin-Chinese theological texts.',
-    image: ALTAR_IMAGE,
+    dimension: '整尊圣像高约2.2米 / 圣所大理石壁龛',
+    descriptionZh: '座堂圣母堂与侧祭台供奉的进教之佑圣母雕像，通体施以精美彩绘与华丽金箔。圣母头戴十二星放射光环与王冠，身披天蓝斗篷，怀抱敞开双臂降福人间的圣婴，基座镌刻信德铭文。圣器室同时珍藏有百年前自欧洲定制的金丝刺绣大祭披、银镀金圣爵、圣体光与珍稀拉丁文教会典籍。',
+    descriptionEn: 'The revered polychrome and gilded statue of Our Lady Help of Christians enshrines the side altar. Wearing a radiant halo of twelve golden stars, royal crown, and azure mantle, the Blessed Virgin carries the Christ Child with arms outstretched in blessing.',
+    image: MADONNA_IMAGE,
     detailsZh: [
-      '保存有1910年建堂落成大礼弥撒所用的法式鎏金圣体光与祭披。',
-      '土山湾孤儿工艺院雕刻大师亲手打造的中国传统工艺祭台圣像圣物。',
-      '定期在主教座堂南侧展厅举办宗教艺术与教会文献主题特展。'
+      '整尊圣像做工精纯，法式古典雕塑与土山湾传统贴金工艺完美结合。',
+      '圣母右持权杖、左抱圣婴，脚踏象征胜过罪恶的祥云与蛇纹基座。',
+      '保存有1910年开堂大礼弥撒所用的法式鎏金圣体光、大祭披与象牙苦像。',
+      '定期在座堂南侧圣物展厅举办宗教历史文献与礼仪圣艺专题特展。'
     ],
     detailsEn: [
-      'Preserves the gilded monstrance and chasubles used at the 1910 grand inauguration Mass.',
-      'Features religious sculptures handcrafted by woodcarvers from the historic Tushanwan Art Atelier.',
-      'Regular thematic exhibitions on religious arts and historical missals held in the south pavilion.'
+      'Masterful synergy of French ecclesiastical classical sculpting and local Tushanwan gilding techniques.',
+      'Our Lady holds the golden scepter while carrying the crowned Christ Child who offers divine peace.',
+      'Preserves original 1910 inauguration monstrances, gold-threaded chasubles, and altar missals.',
+      'Features rotating cultural exhibits of historic sacred vessels in the cathedral memorial hall.'
     ]
   }
 ];
@@ -304,17 +312,6 @@ export const TOUR_STATIONS: TourStation[] = [
 export const MASS_SCHEDULE: { weekday: MassScheduleItem[]; saturday: MassScheduleItem[]; sunday: MassScheduleItem[] } = {
   sunday: [
     {
-      time: '06:00',
-      nameZh: '主日早课弥撒',
-      nameEn: 'Sunday Dawn Mass',
-      languageZh: '中文 (汉语)',
-      languageEn: 'Chinese',
-      locationZh: '大堂主祭台',
-      locationEn: 'Cathedral Main Altar',
-      noteZh: '晨光初现，适合长者与早起信友祈祷',
-      noteEn: 'Early morning Mass with quiet meditation'
-    },
-    {
       time: '07:30',
       nameZh: '主日早弥撒',
       nameEn: 'Sunday Morning Mass',
@@ -327,13 +324,13 @@ export const MASS_SCHEDULE: { weekday: MassScheduleItem[]; saturday: MassSchedul
     },
     {
       time: '10:00',
-      nameZh: '主教座堂大礼唱经弥撒 (High Mass)',
+      nameZh: '主教座堂大礼弥撒 (High Mass)',
       nameEn: 'Solemn High Choral Mass',
-      languageZh: '中文 / 拉丁文伴唱',
-      languageEn: 'Chinese with Latin Chants',
+      languageZh: '中文 (圣乐伴唱)',
+      languageEn: 'Chinese with Choral Chants',
       locationZh: '大堂主祭台',
       locationEn: 'Cathedral Main Altar',
-      noteZh: '堂区圣咏团领唱，大管风琴伴奏，礼仪最为隆重',
+      noteZh: '堂区圣咏团领唱，大管风琴伴奏，隆重礼仪',
       noteEn: 'Featuring Cathedral Sacred Choir & Pipe Organ, highly solemn',
       highlight: true
     },
@@ -341,11 +338,11 @@ export const MASS_SCHEDULE: { weekday: MassScheduleItem[]; saturday: MassSchedul
       time: '12:00',
       nameZh: '英文国际团体主日弥撒 (English Mass)',
       nameEn: 'International Community Mass',
-      languageZh: '英语 (English)',
+      languageZh: '英文 (English)',
       languageEn: 'English',
       locationZh: '大堂主祭台',
       locationEn: 'Cathedral Main Altar',
-      noteZh: '面向在沪外籍天主教徒及海内外访客',
+      noteZh: '面向在沪外籍天主教徒及海内外英文访客',
       noteEn: 'Dedicated to international expatriates & English-speaking visitors',
       highlight: true
     },
@@ -357,81 +354,80 @@ export const MASS_SCHEDULE: { weekday: MassScheduleItem[]; saturday: MassSchedul
       languageEn: 'Chinese',
       locationZh: '大堂主祭台',
       locationEn: 'Cathedral Main Altar',
-      noteZh: '青年圣歌队弹唱，讲道贴近当代青年生活',
-      noteEn: 'Contemporary choir, inspiring homily for students & professionals'
+      noteZh: '青年圣歌队弹唱，主日晚间灵修祈祷',
+      noteEn: 'Contemporary choir, evening Mass for students & professionals'
     }
   ],
   saturday: [
     {
-      time: '06:15',
+      time: '07:00',
       nameZh: '周六平日晨间弥撒',
       nameEn: 'Saturday Morning Mass',
       languageZh: '中文',
       languageEn: 'Chinese',
-      locationZh: '大堂侧祭台',
-      locationEn: 'Side Altar'
-    },
-    {
-      time: '07:00',
-      nameZh: '周六特敬圣母晨弥撒',
-      nameEn: 'Saturday Votive Mass of BVM',
-      languageZh: '中文',
-      languageEn: 'Chinese',
       locationZh: '大堂主祭台',
-      locationEn: 'Main Altar'
+      locationEn: 'Cathedral Main Altar',
+      noteZh: '周六平日晨间敬礼圣祭',
+      noteEn: 'Saturday weekday morning Mass'
     },
     {
       time: '16:30',
-      nameZh: '主日提前儿童与辅祭弥撒',
-      nameEn: 'Vigil Children & Altar Servers Mass',
+      nameZh: '主日提前弥撒 (第一场)',
+      nameEn: 'Anticipated Sunday Vigil Mass (I)',
       languageZh: '中文',
       languageEn: 'Chinese',
       locationZh: '大堂主祭台',
-      locationEn: 'Main Altar',
-      noteZh: '由堂区儿童唱经班与青少年辅祭团承办礼仪',
-      noteEn: 'Led by youth choir and altar servers'
+      locationEn: 'Cathedral Main Altar',
+      noteZh: '周六主日提前弥撒，儿童与家庭祈祷',
+      noteEn: 'First anticipated Sunday Vigil Mass for parish families'
     },
     {
       time: '18:00',
-      nameZh: '主日提前弥撒 (Vigil Mass)',
-      nameEn: 'Sunday Anticipated Vigil Mass',
+      nameZh: '主日提前弥撒 (第二场)',
+      nameEn: 'Anticipated Sunday Vigil Mass (II)',
       languageZh: '中文',
       languageEn: 'Chinese',
       locationZh: '大堂主祭台',
-      locationEn: 'Main Altar',
-      noteZh: '履行主日弥撒本分，适宜周末工作人士',
-      noteEn: 'Fulfills Sunday obligation'
+      locationEn: 'Cathedral Main Altar',
+      noteZh: '履行主日弥撒本分，方便周末信友瞻礼',
+      noteEn: 'Second Sunday anticipated Vigil Mass, fulfills Sunday obligation',
+      highlight: true
     }
   ],
   weekday: [
     {
-      time: '06:15',
-      nameZh: '平日第一场晨间弥撒',
-      nameEn: 'Weekday 1st Morning Mass',
-      languageZh: '中文',
-      languageEn: 'Chinese',
-      locationZh: '圣母小堂 / 侧祭台',
-      locationEn: 'Lady Chapel'
-    },
-    {
       time: '07:00',
-      nameZh: '平日第二场弥撒',
-      nameEn: 'Weekday 2nd Morning Mass',
+      nameZh: '平日晨间弥撒 (周一至周五)',
+      nameEn: 'Weekday Morning Mass (Mon - Fri)',
       languageZh: '中文',
       languageEn: 'Chinese',
       locationZh: '大堂主祭台',
-      locationEn: 'Main Altar'
+      locationEn: 'Cathedral Main Altar',
+      noteZh: '每日清晨开启敬礼，献给天主崭新一日',
+      noteEn: 'Daily early morning prayer and Holy Sacrifice'
     },
     {
-      time: '周五 19:00',
-      nameZh: '首周五特敬耶稣圣心弥撒与圣体降福',
-      nameEn: 'First Friday Sacred Heart Mass & Benediction',
+      time: '19:00',
+      nameZh: '平日晚间弥撒 (周一至周五)',
+      nameEn: 'Weekday Evening Mass (Mon - Fri)',
       languageZh: '中文',
       languageEn: 'Chinese',
       locationZh: '大堂主祭台',
-      locationEn: 'Main Altar',
-      noteZh: '首瞻礼六晚间敬礼耶稣圣心，降福信友',
-      noteEn: 'Sacred Heart devotions and Eucharistic Benediction'
+      locationEn: 'Cathedral Main Altar',
+      noteZh: '周一至周五每晚举行，方便上班族与学子参与礼仪',
+      noteEn: 'Daily evening Mass on weekdays for workers and students',
+      highlight: true
+    },
+    {
+      time: '周六 07:00',
+      nameZh: '周六平日晨间弥撒',
+      nameEn: 'Saturday Morning Weekday Mass',
+      languageZh: '中文',
+      languageEn: 'Chinese',
+      locationZh: '大堂主祭台',
+      locationEn: 'Cathedral Main Altar',
+      noteZh: '周六清晨平日圣祭',
+      noteEn: 'Saturday morning weekday Eucharist'
     }
   ]
 };
@@ -462,9 +458,9 @@ export const CATHEDRAL_NOTICES = [
     tagZh: '参访须知',
     tagEn: 'Visitor Notice',
     date: '2026-08-28',
-    titleZh: '徐家汇座堂推行“分时段智慧云预约”与双语语音导览服务',
-    titleEn: 'Timed Entry E-Reservation & Multilingual Digital Audio Guide Launched',
-    summaryZh: '为保障圣堂神圣宁静氛围与建筑承载安全，所有入堂参观者请提前在线获取免费电子入堂凭证。',
-    summaryEn: 'Visitors are encouraged to secure free digital admission vouchers online to ensure solemn ambiance and site preservation.'
+    titleZh: '徐家汇座堂推行常态化参访接待与双语数字语音导览服务',
+    titleEn: 'Cathedral Visitor Reception & Multilingual Digital Audio Guide Launched',
+    summaryZh: '为便民参访与领略百年建筑艺术瑰宝，座堂全面开放日间常态化入堂参观通道，并提供手机智慧云导览。',
+    summaryEn: 'The Cathedral provides regular daytime visiting access with multilingual mobile digital audio guides for guests to explore gothic architectural heritage.'
   }
 ];

@@ -17,7 +17,7 @@ interface LiturgySectionProps {
 }
 
 export const LiturgySection: React.FC<LiturgySectionProps> = ({ currentLang }) => {
-  const [activeTab, setActiveTab] = useState<'sunday' | 'saturday' | 'weekday' | 'confession'>('sunday');
+  const [activeTab, setActiveTab] = useState<'summary' | 'sunday' | 'saturday' | 'weekday' | 'confession'>('summary');
   const [prayerName, setPrayerName] = useState('');
   const [prayerIntention, setPrayerIntention] = useState('平安健康 / Peace & Health');
   const [prayerText, setPrayerText] = useState('');
@@ -50,7 +50,8 @@ export const LiturgySection: React.FC<LiturgySectionProps> = ({ currentLang }) =
   const scheduleList: MassScheduleItem[] = 
     activeTab === 'sunday' ? MASS_SCHEDULE.sunday :
     activeTab === 'saturday' ? MASS_SCHEDULE.saturday :
-    MASS_SCHEDULE.weekday;
+    activeTab === 'weekday' ? MASS_SCHEDULE.weekday :
+    [];
 
   return (
     <section id="liturgy" className="py-24 bg-[#0c0e12] border-t border-[#1d222b] relative">
@@ -71,6 +72,16 @@ export const LiturgySection: React.FC<LiturgySectionProps> = ({ currentLang }) =
 
           {/* Tab Navigation */}
           <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+            <button
+              onClick={() => setActiveTab('summary')}
+              className={`px-5 py-2 rounded-full text-xs font-medium transition-all border ${
+                activeTab === 'summary'
+                  ? 'bg-[#d4af37] text-black border-[#d4af37] font-semibold shadow-md'
+                  : 'bg-[#151922] text-[#9faab9] border-[#293240] hover:text-white'
+              }`}
+            >
+              {currentLang === 'zh' ? '弥撒时刻表 (官方总览)' : 'Official Timetable'}
+            </button>
             <button
               onClick={() => setActiveTab('sunday')}
               className={`px-5 py-2 rounded-full text-xs font-medium transition-all border ${
@@ -99,7 +110,7 @@ export const LiturgySection: React.FC<LiturgySectionProps> = ({ currentLang }) =
                   : 'bg-[#151922] text-[#9faab9] border-[#293240] hover:text-white'
               }`}
             >
-              {currentLang === 'zh' ? '平日弥撒 (周一至五)' : 'Weekday Masses'}
+              {currentLang === 'zh' ? '平日弥撒 (周一至六)' : 'Weekday Masses'}
             </button>
             <button
               onClick={() => setActiveTab('confession')}
@@ -109,7 +120,7 @@ export const LiturgySection: React.FC<LiturgySectionProps> = ({ currentLang }) =
                   : 'bg-[#151922] text-[#9faab9] border-[#293240] hover:text-white'
               }`}
             >
-              {currentLang === 'zh' ? '和好圣事 (告解)' : 'Reconciliation'}
+              {currentLang === 'zh' ? '忏悔圣事 (告解)' : 'Reconciliation'}
             </button>
           </div>
         </div>
@@ -118,7 +129,115 @@ export const LiturgySection: React.FC<LiturgySectionProps> = ({ currentLang }) =
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
           {/* Left: Liturgical Calendar */}
           <div className="lg:col-span-7 space-y-4">
-            {activeTab === 'confession' ? (
+            {activeTab === 'summary' ? (
+              /* Official Cathedral Schedule Notice Board Card (Matching Uploaded Notice) */
+              <div className="bg-[#12161f] border-2 border-[#d4af37]/40 hover:border-[#d4af37]/70 transition-colors rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#d4af37]/5 rounded-bl-full pointer-events-none" />
+                
+                {/* Notice Header */}
+                <div className="text-center pb-6 border-b border-[#232c3a]">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-[#f5f3ee] font-serif-sc tracking-wide">
+                    {currentLang === 'zh' ? '徐家汇天主堂' : 'St. Ignatius Cathedral'}
+                  </h3>
+                  <div className="text-xl sm:text-2xl font-bold text-[#d4af37] font-serif-sc mt-1 tracking-widest">
+                    {currentLang === 'zh' ? '弥撒时间表' : 'Mass Schedule'}
+                  </div>
+                </div>
+
+                {/* Notice Body */}
+                <div className="py-6 space-y-6 text-sm">
+                  {/* Block 1: 主日弥撒 */}
+                  <div className="space-y-3">
+                    <div className="text-center font-bold text-base sm:text-lg text-white font-serif-sc tracking-wide">
+                      {currentLang === 'zh' ? '主日弥撒' : 'Sunday Masses'}
+                    </div>
+                    
+                    <div className="space-y-2.5 max-w-md mx-auto">
+                      <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-10 py-1.5 border-b border-[#1b222d]">
+                        <span className="font-bold text-[#d4af37] shrink-0 text-sm sm:text-base">
+                          {currentLang === 'zh' ? '周六：' : 'Saturday:'}
+                        </span>
+                        <div className="flex flex-wrap gap-x-6 gap-y-1 font-mono text-sm sm:text-base text-white">
+                          <span>16:30 <span className="font-sans text-xs text-[#9aa7b9]">(中文)</span></span>
+                          <span>18:00 <span className="font-sans text-xs text-[#9aa7b9]">(中文)</span></span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-10 py-1.5 border-b border-[#1b222d]">
+                        <span className="font-bold text-[#d4af37] shrink-0 text-sm sm:text-base">
+                          {currentLang === 'zh' ? '周日：' : 'Sunday:'}
+                        </span>
+                        <div className="grid grid-cols-2 sm:grid-cols-2 gap-x-8 gap-y-1.5 font-mono text-sm sm:text-base text-white">
+                          <span>07:30 <span className="font-sans text-xs text-[#9aa7b9]">(中文)</span></span>
+                          <span>10:00 <span className="font-sans text-xs text-[#9aa7b9]">(中文)</span></span>
+                          <span>12:00 <span className="font-sans text-xs text-[#d4af37] font-semibold">(英文)</span></span>
+                          <span>18:00 <span className="font-sans text-xs text-[#9aa7b9]">(中文)</span></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Block 2: 平日弥撒 */}
+                  <div className="space-y-3 pt-3">
+                    <div className="text-center font-bold text-base sm:text-lg text-white font-serif-sc tracking-wide">
+                      {currentLang === 'zh' ? '平日弥撒' : 'Weekday Masses'}
+                    </div>
+
+                    <div className="space-y-2.5 max-w-md mx-auto">
+                      <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-10 py-1.5 border-b border-[#1b222d]">
+                        <span className="font-bold text-[#d4af37] shrink-0 text-sm sm:text-base">
+                          {currentLang === 'zh' ? '周一至周五：' : 'Mon - Fri:'}
+                        </span>
+                        <div className="flex flex-wrap gap-x-6 gap-y-1 font-mono text-sm sm:text-base text-white">
+                          <span>07:00 <span className="font-sans text-xs text-[#9aa7b9]">(中文)</span></span>
+                          <span>19:00 <span className="font-sans text-xs text-[#9aa7b9]">(中文)</span></span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-10 py-1.5 border-b border-[#1b222d]">
+                        <span className="font-bold text-[#d4af37] shrink-0 text-sm sm:text-base">
+                          {currentLang === 'zh' ? '周六：' : 'Saturday:'}
+                        </span>
+                        <div className="font-mono text-sm sm:text-base text-white">
+                          <span>07:00 <span className="font-sans text-xs text-[#9aa7b9]">(中文)</span></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Block 3: 忏悔圣事 */}
+                  <div className="pt-3 max-w-md mx-auto">
+                    <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-10 py-2">
+                      <span className="font-bold text-[#d4af37] shrink-0 text-sm sm:text-base">
+                        {currentLang === 'zh' ? '忏悔圣事：' : 'Confession:'}
+                      </span>
+                      <div className="space-y-1 text-sm text-[#e2e8f0]">
+                        <div className="font-medium text-white">
+                          {currentLang === 'zh' ? '平日弥撒前 15 分钟' : '15 mins before Weekday Masses'}
+                        </div>
+                        <div className="font-medium text-white">
+                          {currentLang === 'zh' ? '主日弥撒前 30 分钟' : '30 mins before Sunday Masses'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Note */}
+                <div className="pt-4 border-t border-[#232c3a] flex flex-wrap items-center justify-between gap-2 text-xs text-[#8c98a9]">
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-[#d4af37]" />
+                    {currentLang === 'zh' ? '弥撒自由进堂，请提前10分钟有序入座默祷' : 'Walk-in welcome, please arrive 10 mins early'}
+                  </span>
+                  <button
+                    onClick={() => setActiveTab('sunday')}
+                    className="text-[#d4af37] hover:underline flex items-center gap-1 text-xs font-medium"
+                  >
+                    {currentLang === 'zh' ? '查看分场详细介绍 →' : 'View Detailed Masses →'}
+                  </button>
+                </div>
+              </div>
+            ) : activeTab === 'confession' ? (
               /* Confession Info Card */
               <div className="bg-[#12161f] border border-[#262e3d] rounded-xl p-6 sm:p-8 space-y-6">
                 <div className="flex items-center gap-3 pb-4 border-b border-[#202734]">
@@ -127,48 +246,52 @@ export const LiturgySection: React.FC<LiturgySectionProps> = ({ currentLang }) =
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-white font-serif-sc">
-                      {currentLang === 'zh' ? '和好圣事与灵修辅导安排' : 'Sacrament of Reconciliation & Confession'}
+                      {currentLang === 'zh' ? '忏悔圣事 (告解与和好安排)' : 'Sacrament of Reconciliation & Confession'}
                     </h3>
                     <span className="text-xs text-[#d4af37] font-cinzel">SANCTISSIMUM POENITENTIAE</span>
                   </div>
                 </div>
 
                 <div className="space-y-4 text-xs sm:text-sm">
-                  <div className="p-4 bg-[#171c26] rounded-lg border border-[#252f3f] flex items-start justify-between">
+                  <div className="p-4 bg-[#171c26] rounded-lg border border-[#252f3f] flex items-start justify-between gap-4">
                     <div>
                       <div className="font-semibold text-white mb-1">
-                        {currentLang === 'zh' ? '主日各场弥撒前半小时' : 'Every Sunday before Masses'}
+                        {currentLang === 'zh' ? '主日弥撒前 30 分钟' : '30 minutes before Sunday Masses'}
                       </div>
                       <p className="text-xs text-[#8e9aaa]">
-                        {currentLang === 'zh' ? '大堂后部告解亭，司铎现场听告解' : 'In the historic confessional booths in the cathedral nave'}
+                        {currentLang === 'zh' 
+                          ? '包含周六提前主日弥撒（16:00起、17:30起）及周日各场主日弥撒（07:00起、09:30起、11:30起、17:30起），座堂大堂告解亭司铎常驻举行告解圣事。' 
+                          : 'Available 30 mins before all Sunday Masses and Saturday vigil Masses in the cathedral confessional booths.'}
                       </p>
                     </div>
-                    <span className="px-2.5 py-1 bg-[#232b38] text-[#d4af37] text-xs font-mono rounded">
-                      05:30 / 09:30 / 17:30
+                    <span className="px-2.5 py-1 bg-[#232b38] text-[#d4af37] text-xs font-mono rounded shrink-0">
+                      弥撒前 30m
                     </span>
                   </div>
 
-                  <div className="p-4 bg-[#171c26] rounded-lg border border-[#252f3f] flex items-start justify-between">
+                  <div className="p-4 bg-[#171c26] rounded-lg border border-[#252f3f] flex items-start justify-between gap-4">
                     <div>
                       <div className="font-semibold text-white mb-1">
-                        {currentLang === 'zh' ? '首周五耶稣圣心日告解' : 'First Friday Reconciliation'}
+                        {currentLang === 'zh' ? '平日弥撒前 15 分钟' : '15 minutes before Weekday Masses'}
                       </div>
                       <p className="text-xs text-[#8e9aaa]">
-                        {currentLang === 'zh' ? '特敬圣心弥撒前，特设司铎告解圣事' : 'Before the First Friday Sacred Heart Benediction'}
+                        {currentLang === 'zh' 
+                          ? '周一至周五晨间弥撒（06:45起）与晚间弥撒（18:45起）；周六晨间弥撒（06:45起），司铎于祭台侧或告解亭听告解。' 
+                          : 'Available 15 mins before daily morning & evening Masses (Mon-Fri 06:45, 18:45; Sat 06:45).'}
                       </p>
                     </div>
-                    <span className="px-2.5 py-1 bg-[#232b38] text-[#d4af37] text-xs font-mono rounded">
-                      18:00 - 18:50
+                    <span className="px-2.5 py-1 bg-[#232b38] text-[#d4af37] text-xs font-mono rounded shrink-0">
+                      弥撒前 15m
                     </span>
                   </div>
 
                   <div className="p-4 bg-[#171c26] rounded-lg border border-[#252f3f]">
                     <div className="font-semibold text-white mb-1">
-                      {currentLang === 'zh' ? '个别神修面谈与病患敷油' : 'Individual Pastoral Care & Anointing'}
+                      {currentLang === 'zh' ? '个别神修面谈与重病傅油' : 'Individual Pastoral Care & Anointing'}
                     </div>
                     <p className="text-xs text-[#8e9aaa]">
                       {currentLang === 'zh' 
-                        ? '如有临终敷油、病人送圣体或个别灵修辅导需求，请至座堂堂务处或致电神父值班专线。' 
+                        ? '如有临终傅油、病人送圣体或个别灵修辅导需求，请至座堂堂务处或致电本堂值班司铎专线。' 
                         : 'For pastoral emergencies, hospital visitations or private counseling, contact the Cathedral Parish Office.'}
                     </p>
                   </div>
@@ -221,7 +344,7 @@ export const LiturgySection: React.FC<LiturgySectionProps> = ({ currentLang }) =
                   <div className="self-end sm:self-center shrink-0">
                     <span className="inline-flex items-center gap-1 text-xs text-[#a0abb9] bg-[#1a212c] px-3 py-1.5 rounded-full border border-[#2a3444]">
                       <Clock className="w-3 h-3 text-[#d4af37]" />
-                      <span>{currentLang === 'zh' ? '免预约·准时起课' : 'Walk-in Welcome'}</span>
+                      <span>{currentLang === 'zh' ? '自由进堂·准时起课' : 'Walk-in Welcome'}</span>
                     </span>
                   </div>
                 </div>

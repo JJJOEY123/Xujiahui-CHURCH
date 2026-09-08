@@ -11,15 +11,72 @@ class CathedralAudioEngine {
   private gainNodes: GainNode[] = [];
   private masterGain: GainNode | null = null;
   private timerId: number | null = null;
+  private listeners: Set<(playing: boolean) => void> = new Set();
+  private autoPlayInitialized: boolean = false;
+
+  public subscribe(listener: (playing: boolean) => void): () => void {
+    this.listeners.add(listener);
+    listener(this.isPlaying);
+    return () => {
+      this.listeners.delete(listener);
+    };
+  }
+
+  private notifyListeners() {
+    this.listeners.forEach(fn => {
+      try {
+        fn(this.isPlaying);
+      } catch {
+        // ignore
+      }
+    });
+  }
 
   private initContext() {
     if (!this.ctx) {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      this.ctx = new AudioCtx();
+      if (AudioCtx) {
+        this.ctx = new AudioCtx();
+      }
     }
-    if (this.ctx.state === 'suspended') {
-      this.ctx.resume();
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume().catch(() => {});
     }
+  }
+
+  /**
+   * Initializes autoplay when entering webpage.
+   * Seamlessly unlocks and plays on page load or on first user interaction if browser policies block unprompted audio.
+   */
+  public initAutoPlay() {
+    if (this.autoPlayInitialized) return;
+    this.autoPlayInitialized = true;
+    this.isPlaying = true;
+    this.notifyListeners();
+
+    // Try immediate playback
+    this.play();
+
+    // Fallback: unlock on first interaction if blocked by browser policy
+    const unlock = () => {
+      if (this.isPlaying) {
+        if (!this.ctx || this.ctx.state === 'suspended') {
+          this.initContext();
+          this.startOrganLoop();
+        }
+      }
+      window.removeEventListener('click', unlock);
+      window.removeEventListener('touchstart', unlock);
+      window.removeEventListener('keydown', unlock);
+      window.removeEventListener('scroll', unlock);
+      window.removeEventListener('pointerdown', unlock);
+    };
+
+    window.addEventListener('click', unlock, { passive: true });
+    window.addEventListener('touchstart', unlock, { passive: true });
+    window.addEventListener('keydown', unlock, { passive: true });
+    window.addEventListener('scroll', unlock, { passive: true });
+    window.addEventListener('pointerdown', unlock, { passive: true });
   }
 
   public togglePlay(onStateChange?: (playing: boolean) => void) {
@@ -34,8 +91,23 @@ class CathedralAudioEngine {
 
   public play() {
     this.initContext();
-    if (!this.ctx) return;
     this.isPlaying = true;
+    this.notifyListeners();
+
+    if (!this.ctx) return;
+    this.startOrganLoop();
+  }
+
+  private startOrganLoop() {
+    if (!this.ctx || !this.isPlaying) return;
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume().catch(() => {});
+    }
+
+    if (this.timerId) {
+      clearInterval(this.timerId);
+      this.timerId = null;
+    }
 
     // Master gain
     this.masterGain = this.ctx.createGain();
@@ -125,6 +197,7 @@ class CathedralAudioEngine {
 
   public stop() {
     this.isPlaying = false;
+    this.notifyListeners();
     if (this.timerId) {
       clearInterval(this.timerId);
       this.timerId = null;

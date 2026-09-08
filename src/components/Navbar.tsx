@@ -7,7 +7,6 @@ import {
   X, 
   Volume2, 
   VolumeX, 
-  Ticket, 
   Compass, 
   BookOpen, 
   CalendarDays,
@@ -19,17 +18,15 @@ import { cathedralAudio } from '../utils/audioSynthesizer';
 interface NavbarProps {
   currentLang: Language;
   onLanguageChange: (lang: Language) => void;
-  onOpenBookingModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
   currentLang, 
-  onLanguageChange,
-  onOpenBookingModal 
+  onLanguageChange
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(cathedralAudio.getPlaying());
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,10 +36,15 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleOrganMusic = () => {
-    cathedralAudio.togglePlay((playing) => {
+  useEffect(() => {
+    const unsubscribe = cathedralAudio.subscribe((playing) => {
       setIsAudioPlaying(playing);
     });
+    return unsubscribe;
+  }, []);
+
+  const toggleOrganMusic = () => {
+    cathedralAudio.togglePlay();
   };
 
   const navLinks = [
@@ -51,12 +53,6 @@ export const Navbar: React.FC<NavbarProps> = ({
       labelZh: '探索大堂',
       labelEn: 'Discover',
       icon: Compass
-    },
-    {
-      id: 'booking',
-      labelZh: '预约参观',
-      labelEn: 'Book Visit',
-      icon: Ticket
     },
     {
       id: 'virtual',
@@ -108,8 +104,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="hidden md:flex items-center gap-1.5 text-[#8e97a4]">
               <Clock className="w-3 h-3 text-[#d4af37]" />
               {currentLang === 'zh' 
-                ? '今日参观：09:00 - 16:00 (15:30停止入堂) · 免费开放' 
-                : 'Today: 09:00 - 16:00 (Last entry 15:30) · Free Admission'}
+                ? '弥撒：平日 07:00, 19:00 | 主日 07:30, 10:00, 12:00(英), 18:00 · 参访：09:00 - 16:00' 
+                : 'Masses: Mon-Fri 07:00, 19:00 | Sun 07:30, 10:00, 12:00(En), 18:00 · Visit: 09:00 - 16:00'}
             </span>
           </div>
 
@@ -200,23 +196,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Action Button: Book Visit */}
-          <div className="hidden sm:flex items-center gap-3">
-            <button
-              onClick={() => {
-                if (onOpenBookingModal) {
-                  onOpenBookingModal();
-                } else {
-                  scrollToSection('booking');
-                }
-              }}
-              className="relative inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#0e1116] bg-gradient-to-r from-[#e3c27e] via-[#d4af37] to-[#b89542] hover:brightness-110 active:scale-95 transition-all shadow-lg rounded"
-            >
-              <Ticket className="w-3.5 h-3.5" />
-              <span>{currentLang === 'zh' ? '预约参观入堂' : 'Book Free Visit'}</span>
-            </button>
-          </div>
-
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -256,17 +235,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
 
             <div className="pt-3 mt-1 flex flex-col gap-3">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  scrollToSection('booking');
-                }}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-[#d4af37] text-black font-semibold text-xs uppercase tracking-wider rounded shadow-md"
-              >
-                <Ticket className="w-4 h-4" />
-                <span>{currentLang === 'zh' ? '免费预约入堂' : 'Book Free Visit'}</span>
-              </button>
-
               <button
                 onClick={toggleOrganMusic}
                 className="w-full flex items-center justify-center gap-2 py-2.5 border border-[#303947] text-xs text-[#b0bac7] rounded"

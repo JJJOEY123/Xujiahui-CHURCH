@@ -54,15 +54,39 @@ export const Footer: React.FC<FooterProps> = ({ currentLang }) => {
           {/* Col 3: Practical Hours & Mass */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold text-white uppercase tracking-wider font-cinzel">
-              {currentLang === 'zh' ? '开放与礼仪' : 'Opening & Masses'}
+              {currentLang === 'zh' ? '弥撒与开放时间' : 'Masses & Visiting'}
             </h4>
-            <ul className="space-y-2 text-[11px] text-[#8e9aaa]">
-              <li>{currentLang === 'zh' ? '参访：周二至周六 09:00 - 16:00' : 'Visiting: Tue-Sat 09:00 - 16:00'}</li>
-              <li>{currentLang === 'zh' ? '周一全天：闭馆修整维护' : 'Mondays: Closed for Maintenance'}</li>
-              <li>{currentLang === 'zh' ? '主日弥撒：06:00, 07:30, 10:00, 18:00' : 'Sunday Masses: 06:00, 07:30, 10:00, 18:00'}</li>
-              <li>{currentLang === 'zh' ? '国际英文弥撒：主日 12:00' : 'English International Mass: Sun 12:00'}</li>
-              <li>{currentLang === 'zh' ? '平日弥撒：每日 06:15, 07:00' : 'Daily Masses: 06:15, 07:00'}</li>
-            </ul>
+            <div className="space-y-2.5 text-[11px] text-[#8e9aaa]">
+              <div>
+                <span className="text-[#d4af37] font-medium block mb-0.5">
+                  {currentLang === 'zh' ? '主日弥撒' : 'Sunday Masses'}
+                </span>
+                <p>{currentLang === 'zh' ? '周六：16:30, 18:00' : 'Sat: 16:30, 18:00'}</p>
+                <p>{currentLang === 'zh' ? '周日：07:30, 10:00, 12:00(英文), 18:00' : 'Sun: 07:30, 10:00, 12:00(EN), 18:00'}</p>
+              </div>
+
+              <div className="pt-1.5 border-t border-[#181f2a]">
+                <span className="text-[#d4af37] font-medium block mb-0.5">
+                  {currentLang === 'zh' ? '平日弥撒' : 'Weekday Masses'}
+                </span>
+                <p>{currentLang === 'zh' ? '周一至周五：07:00, 19:00' : 'Mon - Fri: 07:00, 19:00'}</p>
+                <p>{currentLang === 'zh' ? '周六：07:00' : 'Saturday: 07:00'}</p>
+              </div>
+
+              <div className="pt-1.5 border-t border-[#181f2a]">
+                <span className="text-[#d4af37] font-medium block mb-0.5">
+                  {currentLang === 'zh' ? '忏悔圣事' : 'Confession'}
+                </span>
+                <p>{currentLang === 'zh' ? '平日弥撒前15分钟 · 主日弥撒前30分钟' : '15m before weekday · 30m before Sunday'}</p>
+              </div>
+
+              <div className="pt-1.5 border-t border-[#181f2a]">
+                <span className="text-[#e2e8f0] font-medium block mb-0.5">
+                  {currentLang === 'zh' ? '参访开放' : 'Visiting Hours'}
+                </span>
+                <p>{currentLang === 'zh' ? '周二至周六 09:00 - 16:00 (周一闭馆)' : 'Tue - Sat 09:00 - 16:00 (Closed Mon)'}</p>
+              </div>
+            </div>
           </div>
 
           {/* Col 4: Official & Diocese Links */}

@@ -48,25 +48,3 @@ export interface MassScheduleItem {
   noteEn?: string;
   highlight?: boolean;
 }
-
-export interface BookingFormState {
-  visitType: 'general' | 'guided' | 'liturgy' | 'audio';
-  date: string;
-  timeSlot: string;
-  visitorCount: number;
-  contactName: string;
-  contactPhone: string;
-  email: string;
-  specialNeeds: boolean;
-}
-
-export interface BookingConfirmation {
-  bookingId: string;
-  visitType: string;
-  date: string;
-  timeSlot: string;
-  visitorCount: number;
-  contactName: string;
-  qrCodeUrl: string;
-  createdAt: string;
-}

@@ -1,7 +1,8 @@
 {
-  "name": "react-example",
+  "name": "xujiahui-cathedral-website",
+  "description": "上海徐家汇圣依纳爵主教座堂官方文化门户与数字建筑体验 (St. Ignatius Cathedral of Shanghai)",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
